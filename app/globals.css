@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #F6F1EA;
+  color: #2B2B2B;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Playfair Display', serif;
+}
+
+::selection {
+  background: #C89B63;
+  color: white;
+}
+
+/* Smooth luxury transitions */
+* {
+  transition: all 0.3s ease;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #efe7dd;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c89b63;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b88952;
+}
+
+/* Reusable Container */
+.container-custom {
+  max-width: 1400px;
+  margin: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* Luxury Glow Effect */
+.luxury-glow {
+  box-shadow:
+    0 10px 30px rgba(200, 155, 99, 0.15),
+    0 20px 60px rgba(0, 0, 0, 0.08);
+}
+
+/* Beige Glass Effect */
+.glass {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Hero Gradient */
+.hero-gradient {
+  background:
+    radial-gradient(circle at top left, #f4dfc6 0%, transparent 30%),
+    radial-gradient(circle at bottom right, #e7d6c0 0%, transparent 30%);
+}
+
+/* Premium Button */
+.gold-btn {
+  background: linear-gradient(
+    135deg,
+    #C89B63,
+    #D8AF76
+  );
+
+  color: white;
+  border-radius: 999px;
+  padding: 16px 32px;
+  font-weight: 500;
+
+  box-shadow:
+    0 10px 20px rgba(200, 155, 99, 0.2);
+}
+
+.gold-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+}
+
+/* Product Card Hover */
+.product-card:hover img {
+  transform: scale(1.08);
+}
+
+/* Fade Animation */
+.fade-up {
+  animation: fadeUp 0.8s ease forwards;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
