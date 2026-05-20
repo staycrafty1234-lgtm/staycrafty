@@ -1,10 +1,10 @@
-import Navbar from 'components/Navbar.tsk'
-import Hero from 'components/Hero.tsk'
-import ProductGrid from 'components/ProductGrid.tsk'
-import About from 'components/About.tsk'
-import Reviews from 'components/Reviews.tsk'
-import Contact from 'components/Contact.tsk'
-import Footer from 'components/Footer.tsk'
+import Navbar from '@/components/Navbar'
+import Hero from '@/components/Hero'
+import ProductGrid from '@/components/ProductGrid'
+import About from '@/components/About'
+import Reviews from '@/components/Reviews'
+import Contact from '@/components/Contact'
+import Footer from '@/components/Footer'
 
 export default function Home() {
   return (
