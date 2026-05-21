@@ -40,85 +40,85 @@ export default function Cart({
 
       {/* CART PANEL */}
       <div
-        className={`fixed top-0 right-0 h-full w-full sm:w-[500px] bg-[#F8F3EC] z-50 shadow-2xl transform transition-transform duration-500 flex flex-col ${
+        className={`fixed top-0 right-0 h-full w-full sm:w-[480px] bg-[#F8F3EC] z-50 shadow-2xl transform transition-transform duration-500 flex flex-col ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
 
         {/* HEADER */}
-        <div className="flex items-center justify-between px-10 py-8 border-b border-[#e7ddd0]">
+        <div className="flex items-center justify-between px-8 py-6 border-b border-[#e7ddd0]">
           <h2 className="text-3xl font-serif">
             Your Cart 🛍️
           </h2>
 
           <button
             onClick={() => setIsOpen(false)}
-            className="text-5xl text-[#6d5d4f]"
+            className="text-4xl text-[#6d5d4f]"
           >
             ×
           </button>
         </div>
 
         {/* ITEMS */}
-        <div className="flex-1 overflow-y-auto px-10 py-8 space-y-8">
+        <div className="flex-1 overflow-y-auto px-8 py-6 space-y-6">
 
           {cart.length === 0 ? (
-            <p className="text-xl text-[#777]">
+            <p className="text-lg text-[#777]">
               Your cart is empty.
             </p>
           ) : (
             cart.map((item) => (
               <div
                 key={item.id}
-                className="flex gap-6 border-b border-[#e7ddd0] pb-8"
+                className="flex gap-5 border-b border-[#e7ddd0] pb-6"
               >
 
                 {/* IMAGE */}
-                <div className="w-28 h-28 rounded-3xl overflow-hidden bg-[#eadcc9] flex items-center justify-center">
+                <div className="w-24 h-24 rounded-2xl overflow-hidden bg-[#eadcc9] flex items-center justify-center flex-shrink-0">
                   <Image
                     src={item.image}
                     alt={item.name}
-                    width={120}
-                    height={120}
-                    className="object-cover"
+                    width={100}
+                    height={100}
+                    className="object-cover w-full h-full"
                   />
                 </div>
 
                 {/* DETAILS */}
                 <div className="flex-1">
 
-                  <h3 className="text-xl font-serif">
+                  <h3 className="text-xl font-serif leading-snug">
                     {item.name}
                   </h3>
 
                   <p className="text-[#C89B63] text-xl mt-2 font-semibold">
-                    ₹{item.price}
+                    ₹{item.price.toLocaleString()}
                   </p>
 
                   {/* QUANTITY */}
-                  <div className="flex items-center gap-5 mt-6">
+                  <div className="flex items-center gap-4 mt-5">
 
                     <button
                       onClick={() => decreaseQty(item.id)}
-                      className="w-10 h-10 rounded-full border border-[#d8c6b1] text-xl"
+                      className="w-10 h-10 rounded-full border border-[#d8c6b1] text-xl flex items-center justify-center hover:bg-[#efe4d7] transition"
                     >
                       −
                     </button>
 
-                    <span className="text-3xl font-semibold">
+                    <span className="text-xl font-semibold min-w-[20px] text-center">
                       {item.quantity}
                     </span>
 
                     <button
                       onClick={() => increaseQty(item.id)}
-                      className="w-10 h-10 rounded-full border border-[#d8c6b1] text-xl"
+                      className="w-10 h-10 rounded-full border border-[#d8c6b1] text-xl flex items-center justify-center hover:bg-[#efe4d7] transition"
                     >
                       +
                     </button>
 
                     <button
                       onClick={() => removeItem(item.id)}
-                      className="ml-auto text-[#7a6859]"
+                      className="ml-auto text-[#7a6859] hover:text-black transition"
                     >
                       Remove
                     </button>
@@ -131,7 +131,7 @@ export default function Cart({
         </div>
 
         {/* FOOTER */}
-        <div className="border-t border-[#e7ddd0] px-10 py-8 bg-[#F8F3EC]">
+        <div className="border-t border-[#e7ddd0] px-8 py-6 bg-[#F8F3EC]">
 
           <div className="flex justify-between items-center text-2xl mb-6">
             <span>Total</span>
@@ -145,7 +145,7 @@ export default function Cart({
             💬 Order via WhatsApp
           </button>
 
-          <p className="text-center mt-5 text-[#8b7b6d]">
+          <p className="text-center mt-4 text-sm text-[#8b7b6d]">
             You'll be redirected to WhatsApp to confirm your order
           </p>
 
