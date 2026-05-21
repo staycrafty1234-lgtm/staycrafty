@@ -2,7 +2,7 @@
 
 import { ShoppingBag } from 'lucide-react'
 
-export default function Navbar() {
+export default function Navbar({ cartCount }) {
   return (
     <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-[#f6f1ea]/80 border-b border-[#e7ddd0]">
       <div className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
