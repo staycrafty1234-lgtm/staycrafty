@@ -20,7 +20,7 @@ export default function Navbar() {
           <ShoppingBag size={18} />
           Cart
           <span className="bg-[#C89B63] h-6 w-6 rounded-full text-sm flex items-center justify-center">
-            0
+            {cartCount}
           </span>
         </button>
       </div>
