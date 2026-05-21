@@ -22,7 +22,10 @@ export default function Home() {
   return (
     <main className="bg-[#F6F1EA] text-[#2B2B2B] overflow-x-hidden">
 
-      <Navbar cartCount={cart.length} />
+      <Navbar
+  cartCount={cart.length}
+  setIsCartOpen={setIsCartOpen}
+/>
 
       <Hero />
 
@@ -34,6 +37,11 @@ export default function Home() {
 
       <Contact />
 
+      <Cart
+  cart={cart}
+  isOpen={isCartOpen}
+  setIsOpen={setIsCartOpen}
+/>
       <Footer />
 
     </main>
