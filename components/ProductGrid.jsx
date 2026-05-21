@@ -6,35 +6,41 @@ const products = [
   {
     id: 1,
     name: 'Luxury Resin Clock',
-    price: '2,499',
+    price: 2,499,
     image: '/products/clock.jpg'
   },
   {
     id: 2,
     name: 'Artistic Serving Board',
-    price: '1,899',
+    price: 1,899,
     image: '/products/board.jpg'
   },
   {
     id: 3,
     name: 'Geometric Resin Tray',
-    price: '2,299',
+    price: 2,299,
     image: '/products/tray.jpg'
   },
   {
     id: 4,
     name: 'Floral Lazy Susan',
-    price: '1,699',
+    price: 1,699,
     image: '/products/lazy.jpg'
   },
   {
     id: 5,
     name: 'Om Decor Piece',
-    price: '1,299',
+    price: 1,299,
     image: '/products/om.jpg'
   }
 ]
-export default function ProductGrid({ addToCart }) {
+export default function ProductGrid({
+  cart,
+  addToCart,
+  increaseQty,
+  decreaseQty
+}) 
+{
   return (
     <section id="shop" className="px-6 lg:px-20 py-28">
       <span className="tracking-[5px] uppercase text-[#C89B63] text-sm">
@@ -73,12 +79,42 @@ export default function ProductGrid({ addToCart }) {
                 ₹{product.price.toLocaleString()}
               </p>
 
-              <button
-  onClick={() => addToCart(product)}
-  className="mt-6 w-full bg-[#243524] text-white py-4 rounded-full hover:bg-[#314531] transition"
->
-  Add To Cart
-</button>
+              {cart.find(item => item.id === product.id) ? (
+
+  <div className="mt-6 flex items-center justify-between bg-[#243524] text-white rounded-full overflow-hidden">
+
+    <button
+      onClick={() => decreaseQty(product.id)}
+      className="px-6 py-4 text-2xl"
+    >
+      −
+    </button>
+
+    <span className="text-lg font-semibold">
+      {
+        cart.find(item => item.id === product.id)?.quantity
+      }
+    </span>
+
+    <button
+      onClick={() => increaseQty(product.id)}
+      className="px-6 py-4 text-2xl"
+    >
+      +
+    </button>
+
+  </div>
+
+) : (
+
+  <button
+    onClick={() => addToCart(product)}
+    className="mt-6 w-full bg-[#243524] text-white py-4 rounded-full hover:bg-[#314531] transition"
+  >
+    Add To Cart
+  </button>
+
+)}
             </div>
           </div>
         ))}
