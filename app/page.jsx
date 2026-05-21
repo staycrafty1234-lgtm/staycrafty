@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-
+import Cart from '../components/Cart'
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
 import ProductGrid from '../components/ProductGrid'
@@ -13,6 +13,7 @@ import Footer from '../components/Footer'
 export default function Home() {
 
   const [cart, setCart] = useState([])
+  const [isCartOpen, setIsCartOpen] = useState(false)
 
   const addToCart = (product) => {
     setCart([...cart, product])
