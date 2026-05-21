@@ -47,7 +47,7 @@ export default function Cart({
 
         {/* HEADER */}
         <div className="flex items-center justify-between px-10 py-8 border-b border-[#e7ddd0]">
-          <h2 className="text-5xl font-serif">
+          <h2 className="text-3xl font-serif">
             Your Cart 🛍️
           </h2>
 
@@ -87,11 +87,11 @@ export default function Cart({
                 {/* DETAILS */}
                 <div className="flex-1">
 
-                  <h3 className="text-3xl font-serif">
+                  <h3 className="text-xl font-serif">
                     {item.name}
                   </h3>
 
-                  <p className="text-[#C89B63] text-3xl mt-2 font-semibold">
+                  <p className="text-[#C89B63] text-xl mt-2 font-semibold">
                     ₹{item.price}
                   </p>
 
@@ -100,7 +100,7 @@ export default function Cart({
 
                     <button
                       onClick={() => decreaseQty(item.id)}
-                      className="w-12 h-12 rounded-full border border-[#d8c6b1] text-3xl"
+                      className="w-10 h-10 rounded-full border border-[#d8c6b1] text-xl"
                     >
                       −
                     </button>
@@ -111,7 +111,7 @@ export default function Cart({
 
                     <button
                       onClick={() => increaseQty(item.id)}
-                      className="w-12 h-12 rounded-full border border-[#d8c6b1] text-3xl"
+                      className="w-10 h-10 rounded-full border border-[#d8c6b1] text-xl"
                     >
                       +
                     </button>
@@ -133,7 +133,7 @@ export default function Cart({
         {/* FOOTER */}
         <div className="border-t border-[#e7ddd0] px-10 py-8 bg-[#F8F3EC]">
 
-          <div className="flex justify-between items-center text-4xl mb-8">
+          <div className="flex justify-between items-center text-2xl mb-6">
             <span>Total</span>
 
             <span className="font-serif text-[#B17A45]">
@@ -141,7 +141,7 @@ export default function Cart({
             </span>
           </div>
 
-          <button className="w-full bg-gradient-to-r from-[#243524] to-[#314531] text-white py-6 rounded-full text-2xl font-semibold shadow-xl hover:scale-[1.02] transition">
+          <button className="w-full bg-gradient-to-r from-[#243524] to-[#314531] text-white py-4 rounded-full text-lg font-semibold shadow-xl hover:scale-[1.02] transition">
             💬 Order via WhatsApp
           </button>
 
