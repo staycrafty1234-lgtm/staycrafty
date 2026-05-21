@@ -4,28 +4,33 @@ import Image from 'next/image'
 
 const products = [
   {
+    id: 1,
     name: 'Luxury Resin Clock',
-    price: '₹2,499',
+    price: '2,499',
     image: '/products/clock.jpg'
   },
   {
+    id: 2,
     name: 'Artistic Serving Board',
-    price: '₹1,899',
+    price: '1,899',
     image: '/products/board.jpg'
   },
   {
+    id: 3,
     name: 'Geometric Resin Tray',
-    price: '₹2,299',
+    price: '2,299',
     image: '/products/tray.jpg'
   },
   {
+    id: 4,
     name: 'Floral Lazy Susan',
-    price: '₹1,699',
+    price: '1,699',
     image: '/products/lazy.jpg'
   },
   {
+    id: 5,
     name: 'Om Decor Piece',
-    price: '₹1,299',
+    price: '1,299',
     image: '/products/om.jpg'
   }
 ]
