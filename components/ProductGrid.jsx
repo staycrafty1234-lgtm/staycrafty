@@ -68,9 +68,12 @@ export default function ProductGrid({ addToCart }) {
                 {product.price}
               </p>
 
-              <button className="mt-6 w-full bg-[#243524] text-white py-4 rounded-full hover:bg-[#314531] transition">
-                Add To Cart
-              </button>
+              <button
+  onClick={() => addToCart(product)}
+  className="mt-6 w-full bg-[#243524] text-white py-4 rounded-full hover:bg-[#314531] transition"
+>
+  Add To Cart
+</button>
             </div>
           </div>
         ))}
