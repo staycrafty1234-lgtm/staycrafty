@@ -73,7 +73,12 @@ const removeItem = (id) => {
 
       <Hero />
 
-      <ProductGrid addToCart={addToCart} />
+      <ProductGrid
+  cart={cart}
+  addToCart={addToCart}
+  increaseQty={increaseQty}
+  decreaseQty={decreaseQty}
+/>
 
       <About />
 
