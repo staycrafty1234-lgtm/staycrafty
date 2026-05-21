@@ -70,7 +70,7 @@ export default function ProductGrid({ addToCart }) {
               </h3>
 
               <p className="mt-3 text-[#C89B63] text-xl">
-                {product.price}
+                ₹{product.price.toLocaleString()}
               </p>
 
               <button
