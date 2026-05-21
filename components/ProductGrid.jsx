@@ -29,7 +29,7 @@ const products = [
     image: '/products/om.jpg'
   }
 ]
-export default function ProductGrid() {
+export default function ProductGrid({ addToCart }) {
   return (
     <section id="shop" className="px-6 lg:px-20 py-28">
       <span className="tracking-[5px] uppercase text-[#C89B63] text-sm">
