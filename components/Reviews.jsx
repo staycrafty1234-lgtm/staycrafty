@@ -2,78 +2,76 @@
 
 import { useEffect, useState } from 'react'
 import { Star } from 'lucide-react'
+import { supabase } from '../lib/supabase'
 
 export default function Reviews() {
 
-  const [reviews, setReviews] = useState(() => {
-
-    if (typeof window !== 'undefined') {
-
-      const savedReviews = localStorage.getItem('reviews')
-
-      return savedReviews
-        ? JSON.parse(savedReviews)
-        : [
-            {
-              name: 'Aarushi',
-              rating: 5,
-              text: 'Absolutely beautiful craftsmanship. The resin finish looks luxurious!'
-            },
-            {
-              name: 'Riya',
-              rating: 4,
-              text: 'Packaging was elegant and the tray quality exceeded expectations.'
-            }
-          ]
-    }
-
-    return []
-  })
+  const [reviews, setReviews] = useState([])
 
   const [name, setName] = useState('')
   const [text, setText] = useState('')
   const [rating, setRating] = useState(5)
 
+  // FETCH REVIEWS
   useEffect(() => {
-    localStorage.setItem(
-      'reviews',
-      JSON.stringify(reviews)
-    )
-  }, [reviews])
 
-  const submitReview = () => {
+    fetchReviews()
+
+  }, [])
+
+  async function fetchReviews() {
+
+    const { data, error } = await supabase
+      .from('reviews')
+      .select('*')
+      .order('created_at', { ascending: false })
+
+    if (!error) {
+      setReviews(data)
+    }
+  }
+
+  // SUBMIT REVIEW
+  async function submitReview() {
 
     if (!name || !text) return
 
-    const newReview = {
-      name,
-      text,
-      rating
+    const { error } = await supabase
+      .from('reviews')
+      .insert([
+        {
+          name,
+          message: text,
+          rating
+        }
+      ])
+
+    if (!error) {
+
+      setName('')
+      setText('')
+      setRating(5)
+
+      fetchReviews()
     }
-
-    setReviews([newReview, ...reviews])
-
-    setName('')
-    setText('')
-    setRating(5)
   }
 
   return (
     <section
       id="reviews"
-      className="px-6 lg:px-20 py-28 bg-[#f8f3ec]"
+      className="px-5 sm:px-6 lg:px-20 py-24 lg:py-32 bg-[#f8f3ec]"
     >
 
       <span className="tracking-[5px] uppercase text-[#C89B63] text-sm">
         Customer Reviews
       </span>
 
-      <h2 className="text-5xl lg:text-7xl font-serif mt-5">
+      <h2 className="text-4xl sm:text-5xl lg:text-7xl font-serif mt-5 leading-tight">
         What Our Customers Say
       </h2>
 
       {/* REVIEW FORM */}
-      <div className="bg-white rounded-[30px] p-8 mt-16 shadow-sm max-w-3xl">
+      <div className="bg-white rounded-[30px] p-6 sm:p-8 mt-16 shadow-sm max-w-3xl">
 
         <input
           type="text"
@@ -90,7 +88,7 @@ export default function Reviews() {
           className="w-full border border-[#ddd] rounded-xl px-5 py-4 mb-5 outline-none h-32 resize-none"
         />
 
-        {/* STAR RATING */}
+        {/* STARS */}
         <div className="flex gap-2 mb-6">
 
           {[1, 2, 3, 4, 5].map((star) => (
@@ -98,10 +96,10 @@ export default function Reviews() {
             <button
               key={star}
               onClick={() => setRating(star)}
-              className="transition hover:scale-110"
+              className="hover:scale-110 transition"
             >
               <Star
-                size={32}
+                size={30}
                 fill={star <= rating ? '#C89B63' : 'transparent'}
                 color="#C89B63"
               />
@@ -110,7 +108,7 @@ export default function Reviews() {
           ))}
         </div>
 
-        {/* SUBMIT */}
+        {/* BUTTON */}
         <button
           onClick={submitReview}
           className="bg-[#243524] text-white px-8 py-4 rounded-full hover:bg-[#314531] transition"
@@ -119,31 +117,33 @@ export default function Reviews() {
         </button>
       </div>
 
-      {/* REVIEW CARDS */}
+      {/* REVIEWS */}
       <div className="grid md:grid-cols-2 gap-8 mt-16">
 
-        {reviews.map((review, index) => (
+        {reviews.map((review) => (
 
           <div
-            key={index}
+            key={review.id}
             className="bg-white p-8 rounded-[30px] shadow-sm"
           >
 
             <div className="flex gap-1 mb-4">
 
               {[...Array(review.rating)].map((_, i) => (
+
                 <Star
                   key={i}
                   size={20}
                   fill="#C89B63"
                   color="#C89B63"
                 />
+
               ))}
 
             </div>
 
             <p className="text-[#5c5248] leading-8">
-              "{review.text}"
+              "{review.message}"
             </p>
 
             <h4 className="mt-6 font-semibold text-lg">
