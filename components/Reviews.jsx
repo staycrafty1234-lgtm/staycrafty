@@ -6,7 +6,22 @@ import { supabase } from '../lib/supabase'
 
 export default function Reviews() {
 
-  const [reviews, setReviews] = useState([])
+  const [reviews, setReviews] = useState([
+    {
+      id: 1,
+      name: 'Aarushi',
+      message:
+        'Absolutely beautiful craftsmanship. The resin finish looks luxurious!',
+      rating: 5
+    },
+    {
+      id: 2,
+      name: 'Riya',
+      message:
+        'Packaging was elegant and the tray quality exceeded expectations.',
+      rating: 4
+    }
+  ])
 
   const [name, setName] = useState('')
   const [text, setText] = useState('')
@@ -14,9 +29,7 @@ export default function Reviews() {
 
   // FETCH REVIEWS
   useEffect(() => {
-
     fetchReviews()
-
   }, [])
 
   async function fetchReviews() {
@@ -26,8 +39,12 @@ export default function Reviews() {
       .select('*')
       .order('created_at', { ascending: false })
 
-    if (!error) {
+    if (!error && data.length > 0) {
       setReviews(data)
+    }
+
+    if (error) {
+      console.log(error)
     }
   }
 
@@ -36,24 +53,32 @@ export default function Reviews() {
 
     if (!name || !text) return
 
+    const reviewData = {
+      name,
+      message: text,
+      rating
+    }
+
     const { error } = await supabase
       .from('reviews')
-      .insert([
-        {
-          name,
-          message: text,
-          rating
-        }
-      ])
+      .insert([reviewData])
 
-    if (!error) {
-
-      setName('')
-      setText('')
-      setRating(5)
-
-      fetchReviews()
+    if (error) {
+      console.log(error)
+      return
     }
+
+    setReviews([
+      {
+        id: Date.now(),
+        ...reviewData
+      },
+      ...reviews
+    ])
+
+    setName('')
+    setText('')
+    setRating(5)
   }
 
   return (
@@ -70,7 +95,7 @@ export default function Reviews() {
         What Our Customers Say
       </h2>
 
-      {/* REVIEW FORM */}
+      {/* FORM */}
       <div className="bg-white rounded-[30px] p-6 sm:p-8 mt-16 shadow-sm max-w-3xl">
 
         <input
@@ -94,6 +119,7 @@ export default function Reviews() {
           {[1, 2, 3, 4, 5].map((star) => (
 
             <button
+              type="button"
               key={star}
               onClick={() => setRating(star)}
               className="hover:scale-110 transition"
@@ -115,9 +141,10 @@ export default function Reviews() {
         >
           Submit Review
         </button>
+
       </div>
 
-      {/* REVIEWS */}
+      {/* REVIEW GRID */}
       <div className="grid md:grid-cols-2 gap-8 mt-16">
 
         {reviews.map((review) => (
