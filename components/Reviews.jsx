@@ -136,6 +136,7 @@ export default function Reviews() {
 
         {/* BUTTON */}
         <button
+          type="button"
           onClick={submitReview}
           className="bg-[#243524] text-white px-8 py-4 rounded-full hover:bg-[#314531] transition"
         >
