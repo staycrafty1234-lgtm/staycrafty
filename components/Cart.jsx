@@ -141,9 +141,24 @@ export default function Cart({
             </span>
           </div>
 
-          <button className="w-full bg-gradient-to-r from-[#243524] to-[#314531] text-white py-4 rounded-full text-lg font-semibold shadow-xl hover:scale-[1.02] transition">
-            💬 Order via WhatsApp
-          </button>
+          <button
+  onClick={() => {
+
+    const message = cart.map(item => {
+      return `${item.name} x${item.quantity} - ₹${item.price * item.quantity}`
+    }).join('%0A')
+
+    const totalMessage = `%0A%0ATotal: ₹${total.toLocaleString()}`
+
+    window.open(
+      `https://wa.me/919820597827?text=Hello! I want to order:%0A%0A${message}${totalMessage}`,
+      '_blank'
+    )
+  }}
+  className="w-full bg-gradient-to-r from-[#243524] to-[#314531] text-white py-4 rounded-full text-lg font-semibold shadow-xl hover:scale-[1.02] transition"
+>
+  💬 Order via WhatsApp
+</button>
 
           <p className="text-center mt-4 text-sm text-[#8b7b6d]">
             You'll be redirected to WhatsApp to confirm your order
