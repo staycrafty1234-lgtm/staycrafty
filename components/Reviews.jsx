@@ -1,58 +1,139 @@
 'use client'
 
+import { useState } from 'react'
+import { Star } from 'lucide-react'
+
 export default function Reviews() {
+
+  const [reviews, setReviews] = useState([
+    {
+      name: 'Aarushi',
+      rating: 5,
+      text: 'Absolutely beautiful craftsmanship. The resin finish looks luxurious!'
+    },
+    {
+      name: 'Riya',
+      rating: 4,
+      text: 'Packaging was elegant and the tray quality exceeded expectations.'
+    }
+  ])
+
+  const [name, setName] = useState('')
+  const [text, setText] = useState('')
+  const [rating, setRating] = useState(5)
+
+  const submitReview = () => {
+
+    if (!name || !text) return
+
+    const newReview = {
+      name,
+      text,
+      rating
+    }
+
+    setReviews([newReview, ...reviews])
+
+    setName('')
+    setText('')
+    setRating(5)
+  }
+
   return (
     <section
       id="reviews"
-      className="bg-gradient-to-br from-[#243524] to-[#314531] text-white px-6 lg:px-20 py-28"
+      className="px-6 lg:px-20 py-28 bg-[#f8f3ec]"
     >
-      <div className="grid lg:grid-cols-2 gap-16">
-        <div>
-          <h2 className="text-5xl font-serif">
-            Leave A Review
-          </h2>
-<input
-            type="text"
-            placeholder="Your Name"
-            className="w-full mt-10 bg-white/10 border border-white/10 rounded-2xl p-5 outline-none"
-          />
 
-          <textarea
-            placeholder="Your Review"
-            rows={6}
-            className="w-full mt-6 bg-white/10 border border-white/10 rounded-2xl p-5 outline-none"
-          />
+      <span className="tracking-[5px] uppercase text-[#C89B63] text-sm">
+        Customer Reviews
+      </span>
 
-          <button className="mt-6 bg-[#C89B63] px-8 py-4 rounded-full">
-            Submit Review
-          </button>
+      <h2 className="text-5xl lg:text-7xl font-serif mt-5">
+        What Our Customers Say
+      </h2>
+
+      {/* REVIEW FORM */}
+      <div className="bg-white rounded-[30px] p-8 mt-16 shadow-sm max-w-3xl">
+
+        <input
+          type="text"
+          placeholder="Your Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="w-full border border-[#ddd] rounded-xl px-5 py-4 mb-5 outline-none"
+        />
+
+        <textarea
+          placeholder="Write your review..."
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          className="w-full border border-[#ddd] rounded-xl px-5 py-4 mb-5 outline-none h-32 resize-none"
+        />
+
+        {/* STAR RATING */}
+        <div className="flex gap-2 mb-6">
+
+          {[1, 2, 3, 4, 5].map((star) => (
+
+            <button
+              key={star}
+              onClick={() => setRating(star)}
+              className="transition hover:scale-110"
+            >
+              <Star
+                size={32}
+                fill={star <= rating ? '#C89B63' : 'transparent'}
+                color="#C89B63"
+              />
+            </button>
+
+          ))}
         </div>
-        <div className="space-y-8">
-          <div className="bg-white/10 backdrop-blur-lg p-8 rounded-[30px] border border-white/10">
-            <p className="text-[#E3BC80] text-xl">★★★★★</p>
 
-            <p className="mt-6 text-lg leading-9">
-              My marble tray arrived perfectly packed.
-              It looks even more beautiful in person.
+        {/* SUBMIT */}
+        <button
+          onClick={submitReview}
+          className="bg-[#243524] text-white px-8 py-4 rounded-full hover:bg-[#314531] transition"
+        >
+          Submit Review
+        </button>
+      </div>
+
+      {/* REVIEW CARDS */}
+      <div className="grid md:grid-cols-2 gap-8 mt-16">
+
+        {reviews.map((review, index) => (
+
+          <div
+            key={index}
+            className="bg-white p-8 rounded-[30px] shadow-sm"
+          >
+
+            <div className="flex gap-1 mb-4">
+
+              {[...Array(review.rating)].map((_, i) => (
+                <Star
+                  key={i}
+                  size={20}
+                  fill="#C89B63"
+                  color="#C89B63"
+                />
+              ))}
+
+            </div>
+
+            <p className="text-[#5c5248] leading-8">
+              "{review.text}"
             </p>
 
-            <p className="mt-6 text-white/70">
-              — Neha K.
-            </p>
+            <h4 className="mt-6 font-semibold text-lg">
+              — {review.name}
+            </h4>
+
           </div>
-          <div className="bg-white/10 backdrop-blur-lg p-8 rounded-[30px] border border-white/10">
-            <p className="text-[#E3BC80] text-xl">★★★★★</p>
 
-            <p className="mt-6 text-lg leading-9">
-              The quality is incredible for the price.
-              Everyone keeps asking where I bought it.
-            </p>
-
-            <p className="mt-6 text-white/70">
-              — Riya P.
-            </p>
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   )
