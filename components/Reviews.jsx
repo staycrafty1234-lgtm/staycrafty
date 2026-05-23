@@ -64,10 +64,10 @@ export default function Reviews() {
       .insert([reviewData])
 
     if (error) {
-      console.log(error)
-      return
-    }
-
+  alert(error.message)
+  console.log(error)
+  return
+}
     setReviews([
       {
         id: Date.now(),
