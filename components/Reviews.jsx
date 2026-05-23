@@ -1,26 +1,45 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Star } from 'lucide-react'
 
 export default function Reviews() {
 
-  const [reviews, setReviews] = useState([
-    {
-      name: 'Aarushi',
-      rating: 5,
-      text: 'Absolutely beautiful craftsmanship. The resin finish looks luxurious!'
-    },
-    {
-      name: 'Riya',
-      rating: 4,
-      text: 'Packaging was elegant and the tray quality exceeded expectations.'
+  const [reviews, setReviews] = useState(() => {
+
+    if (typeof window !== 'undefined') {
+
+      const savedReviews = localStorage.getItem('reviews')
+
+      return savedReviews
+        ? JSON.parse(savedReviews)
+        : [
+            {
+              name: 'Aarushi',
+              rating: 5,
+              text: 'Absolutely beautiful craftsmanship. The resin finish looks luxurious!'
+            },
+            {
+              name: 'Riya',
+              rating: 4,
+              text: 'Packaging was elegant and the tray quality exceeded expectations.'
+            }
+          ]
     }
-  ])
+
+    return []
+  })
 
   const [name, setName] = useState('')
   const [text, setText] = useState('')
   const [rating, setRating] = useState(5)
+
+  useEffect(() => {
+    localStorage.setItem(
+      'reviews',
+      JSON.stringify(reviews)
+    )
+  }, [reviews])
 
   const submitReview = () => {
 
