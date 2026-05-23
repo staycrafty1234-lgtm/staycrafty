@@ -1,6 +1,6 @@
 'use client'
  
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
@@ -13,7 +13,17 @@ import Cart from '../components/Cart'
 
 export default function Home() {
 
-  const [cart, setCart] = useState([])
+  const [cart, setCart] = useState(() => {
+
+  if (typeof window !== 'undefined') {
+
+    const savedCart = localStorage.getItem('cart')
+
+    return savedCart ? JSON.parse(savedCart) : []
+  }
+
+  return []
+})
   const [isCartOpen, setIsCartOpen] = useState(false)
 
   const addToCart = (product) => {
@@ -77,7 +87,9 @@ export default function Home() {
       cart.filter(item => item.id !== id)
     )
   }
-
+useEffect(() => {
+  localStorage.setItem('cart', JSON.stringify(cart))
+}, [cart])
   return (
     <main className="bg-[#F6F1EA] text-[#2B2B2B] overflow-x-hidden">
 
