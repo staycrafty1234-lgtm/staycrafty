@@ -1,5 +1,6 @@
 'use client'
 
+import toast from 'react-hot-toast'
 import { useEffect, useState } from 'react'
 import { Star } from 'lucide-react'
 import { supabase } from '../lib/supabase'
@@ -83,7 +84,7 @@ export default function Reviews() {
     },
     ...reviews
   ])
-
+ toast.success('Review submitted successfully!')
   setName('')
   setText('')
   setRating(5)
