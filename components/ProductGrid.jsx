@@ -1,5 +1,6 @@
 'use client'
 
+import toast from 'react-hot-toast'
 import Image from 'next/image'
 
 const products = [
@@ -124,6 +125,7 @@ export default function ProductGrid({
 
                   <button
                     onClick={() => addToCart(product)}
+                    toast.success('Added to cart!')
                     className="mt-6 w-full bg-[#243524] text-white py-4 rounded-full hover:bg-[#314531] transition"
                   >
                     Add To Cart
