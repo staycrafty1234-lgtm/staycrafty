@@ -10,6 +10,7 @@ import Reviews from '../components/Reviews'
 import Contact from '../components/Contact'
 import Footer from '../components/Footer'
 import Cart from '../components/Cart'
+import WhatsAppButton from '../components/WhatsAppButton'
 
 export default function Home() {
 
@@ -132,6 +133,7 @@ useEffect(() => {
         removeItem={removeItem}
       />
 
+     <WhatsAppButton />
       <Footer />
 
     </main>
