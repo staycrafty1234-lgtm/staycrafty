@@ -163,7 +163,10 @@ const [selectedProduct, setSelectedProduct] =
                   <div className="mt-6 flex items-center justify-between bg-[#243524] text-white rounded-full overflow-hidden">
 
                     <button
-                      onClick={() => decreaseQty(product.id)}
+                      onClick={(e) => {
+  e.stopPropagation()
+  decreaseQty(product.id)
+}}
                       className="px-6 py-4 text-2xl hover:bg-[#314531] transition"
                     >
                       −
@@ -174,7 +177,10 @@ const [selectedProduct, setSelectedProduct] =
                     </span>
 
                     <button
-                      onClick={() => increaseQty(product.id)}
+                      onClick={(e) => {
+  e.stopPropagation()
+  increaseQty(product.id)
+}}
                       className="px-6 py-4 text-2xl hover:bg-[#314531] transition"
                     >
                       +
@@ -185,10 +191,11 @@ const [selectedProduct, setSelectedProduct] =
                 ) : (
 
                   <button
-  onClick={() => {
-    addToCart(product)
-    toast.success('Added to cart!')
-  }}
+  onClick={(e) => {
+  e.stopPropagation()
+  addToCart(product)
+  toast.success('Added to cart!')
+}}
   className="mt-6 w-full bg-[#243524] text-white py-4 rounded-full hover:bg-[#314531] transition"
 >
   Add To Cart
