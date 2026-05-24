@@ -220,13 +220,17 @@ const [selectedProduct, setSelectedProduct] =
       onClick={(e) => e.stopPropagation()}
     >
 
-      <Image
-        src={selectedProduct.image}
-        alt={selectedProduct.name}
-        width={700}
-        height={700}
-        className="w-full h-full object-cover"
-      />
+      <div className="overflow-hidden group">
+
+  <Image
+    src={selectedProduct.image}
+    alt={selectedProduct.name}
+    width={700}
+    height={700}
+    className="w-full h-full object-cover transition duration-700 group-hover:scale-110"
+  />
+
+</div>
 
       <div className="p-10 flex flex-col justify-center">
 
