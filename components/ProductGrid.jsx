@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-
+import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
 import Image from 'next/image'
 
@@ -122,8 +122,12 @@ const [activeCategory, setActiveCategory] =
           )
 
           return (
-            <div
-              key={product.id}
+            <motion.div
+  key={product.id}
+  initial={{ opacity: 0, y: 40 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5 }}
+  viewport={{ once: true }}
               className="bg-white rounded-[30px] overflow-hidden shadow-sm hover:shadow-2xl transition duration-500 hover:-translate-y-2"
             >
 
@@ -189,7 +193,7 @@ const [activeCategory, setActiveCategory] =
                 )}
 
               </div>
-            </div>
+            </motion.div>
           )
         })}
       </div>
