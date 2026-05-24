@@ -22,7 +22,7 @@ export default function Reviews() {
       rating: 4
     }
   ])
-
+  const [loading, setLoading] = useState(false)
   const [name, setName] = useState('')
   const [text, setText] = useState('')
   const [rating, setRating] = useState(5)
@@ -51,35 +51,45 @@ export default function Reviews() {
   // SUBMIT REVIEW
   async function submitReview() {
 
-    if (!name || !text) return
+  if (!name || !text) return
 
-    const reviewData = {
-      name,
-      message: text,
-      rating
-    }
+  setLoading(true)
 
-    const { error } = await supabase
-      .from('reviews')
-      .insert([reviewData])
-
-    if (error) {
-  alert(error.message)
-  console.log(error)
-  return
-}
-    setReviews([
-      {
-        id: Date.now(),
-        ...reviewData
-      },
-      ...reviews
-    ])
-
-    setName('')
-    setText('')
-    setRating(5)
+  const reviewData = {
+    name,
+    message: text,
+    rating
   }
+
+  const { error } = await supabase
+    .from('reviews')
+    .insert([reviewData])
+
+  if (error) {
+
+    setLoading(false)
+
+    alert(error.message)
+
+    console.log(error)
+
+    return
+  }
+
+  setReviews([
+    {
+      id: Date.now(),
+      ...reviewData
+    },
+    ...reviews
+  ])
+
+  setName('')
+  setText('')
+  setRating(5)
+
+  setLoading(false)
+}
 
   return (
     <section
@@ -136,12 +146,13 @@ export default function Reviews() {
 
         {/* BUTTON */}
         <button
-          type="button"
-          onClick={submitReview}
-          className="bg-[#243524] text-white px-8 py-4 rounded-full hover:bg-[#314531] transition"
-        >
-          Submit Review
-        </button>
+  type="button"
+  onClick={submitReview}
+  disabled={loading}
+  className="bg-[#243524] text-white px-8 py-4 rounded-full hover:bg-[#314531] transition disabled:opacity-50"
+>
+  {loading ? 'Submitting...' : 'Submit Review'}
+</button>
 
       </div>
 
