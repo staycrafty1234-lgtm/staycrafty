@@ -1,13 +1,18 @@
 'use client'
 
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 
 export default function Hero() {
   return (
     <section className="min-h-screen grid lg:grid-cols-2 items-center px-5 sm:px-6 lg:px-20 pt-28 lg:pt-32 gap-10 lg:gap-16 overflow-hidden">
 
       {/* LEFT SIDE */}
-      <div>
+      <motion.div
+  initial={{ opacity: 0, x: -60 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.8 }}
+>
 
         <span className="uppercase tracking-[5px] text-[#C89B63] text-sm">
           Handcrafted Luxury
@@ -42,10 +47,15 @@ export default function Hero() {
           </a>
 
         </div>
-      </div>
+      </motion.div>
 
       {/* RIGHT SIDE */}
-      <div className="relative">
+      <motion.div
+  className="relative"
+  initial={{ opacity: 0, x: 60 }}
+  animate={{ opacity: 1, x: 0 }}
+  transition={{ duration: 0.8 }}
+>
 
         {/* GLOW */}
         <div className="absolute -top-10 -left-10 w-52 sm:w-72 h-52 sm:h-72 bg-[#e7d6c0] rounded-full blur-3xl opacity-50" />
@@ -64,7 +74,7 @@ export default function Hero() {
           ✦ All pieces are custom & made-to-order
         </div>
 
-      </div>
+      </motion.div>
     </section>
   )
 }
