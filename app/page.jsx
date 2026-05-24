@@ -1,7 +1,7 @@
 'use client'
  
 import { useEffect, useState } from 'react'
-
+import { Toaster } from 'react-hot-toast'
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
 import ProductGrid from '../components/ProductGrid'
@@ -97,6 +97,16 @@ useEffect(() => {
         cartCount={cart.length}
         setIsCartOpen={setIsCartOpen}
       />
+     <Toaster
+  position="top-right"
+  toastOptions={{
+    style: {
+      background: '#243524',
+      color: '#fff',
+      borderRadius: '14px'
+    }
+  }}
+/>
 
       <Hero />
 
