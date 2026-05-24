@@ -1,4 +1,5 @@
 'use client'
+import { useState } from 'react'
 
 import toast from 'react-hot-toast'
 import Image from 'next/image'
@@ -8,31 +9,36 @@ const products = [
     id: 1,
     name: 'Luxury Resin Clock',
     price: 2499,
-    image: '/products/clock.jpg'
+    image: '/products/clock.jpg',
+    category: 'Clocks'
   },
   {
     id: 2,
     name: 'Artistic Serving Board',
     price: 1899,
-    image: '/products/board.jpg'
+    image: '/products/board.jpg',
+    category: 'Trays'
   },
   {
     id: 3,
     name: 'Geometric Resin Tray',
     price: 2299,
-    image: '/products/tray.jpg'
+    image: '/products/tray.jpg',
+    category: 'Trays'
   },
   {
     id: 4,
     name: 'Floral Lazy Susan',
     price: 1699,
-    image: '/products/lazy.jpg'
+    image: '/products/lazy.jpg',
+    category: 'Dining'
   },
   {
     id: 5,
     name: 'Om Decor Piece',
     price: 1299,
-    image: '/products/om.jpg'
+    image: '/products/om.jpg',
+    category: 'Decor'
   }
 ]
 
@@ -42,6 +48,23 @@ export default function ProductGrid({
   increaseQty,
   decreaseQty
 }) {
+  const [search, setSearch] = useState('')
+
+const [activeCategory, setActiveCategory] =
+  useState('All')
+  const filteredProducts = products.filter(product => {
+
+  const matchesSearch =
+    product.name
+      .toLowerCase()
+      .includes(search.toLowerCase())
+
+  const matchesCategory =
+    activeCategory === 'All' ||
+    product.category === activeCategory
+
+  return matchesSearch && matchesCategory
+})
 
   return (
     <section id="shop" className="px-6 lg:px-20 py-28">
@@ -58,11 +81,41 @@ export default function ProductGrid({
         Every item is handmade with premium resin, pigments,
         textures, and love.
       </p>
+      <div className="mt-12 flex flex-col lg:flex-row gap-5 lg:items-center lg:justify-between">
+
+  <input
+    type="text"
+    placeholder="Search products..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+    className="border border-[#ddd] px-6 py-4 rounded-full bg-white outline-none w-full lg:w-[320px]"
+  />
+
+  <div className="flex flex-wrap gap-3">
+
+    {['All', 'Clocks', 'Trays', 'Boards', 'Decor', 'Dining'].map(category => (
+
+      <button
+        key={category}
+        onClick={() => setActiveCategory(category)}
+        className={`px-5 py-3 rounded-full transition ${
+          activeCategory === category
+            ? 'bg-[#243524] text-white'
+            : 'bg-white'
+        }`}
+      >
+        {category}
+      </button>
+
+    ))}
+
+  </div>
+</div>
 
       {/* PRODUCT GRID */}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mt-20">
 
-        {products.map((product) => {
+        {filteredProducts.map((product) => {
 
           const cartItem = cart.find(
             item => item.id === product.id
