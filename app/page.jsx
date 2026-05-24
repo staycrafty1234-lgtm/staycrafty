@@ -124,6 +124,22 @@ useEffect(() => {
 
       <Contact />
 
+     <button
+  onClick={() => setIsCartOpen(true)}
+  className="fixed bottom-6 right-6 z-40 bg-[#243524] text-white w-16 h-16 rounded-full shadow-2xl flex items-center justify-center text-2xl hover:scale-110 transition"
+>
+
+  🛍️
+
+  {cart.length > 0 && (
+
+    <span className="absolute -top-2 -right-2 bg-[#C89B63] text-white text-sm w-7 h-7 rounded-full flex items-center justify-center font-semibold">
+      {cart.length}
+    </span>
+
+  )}
+
+</button>
       <Cart
         cart={cart}
         isOpen={isCartOpen}
