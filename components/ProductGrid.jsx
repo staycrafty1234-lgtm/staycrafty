@@ -52,6 +52,9 @@ export default function ProductGrid({
 
 const [activeCategory, setActiveCategory] =
   useState('All')
+
+const [selectedProduct, setSelectedProduct] =
+  useState(null)
   const filteredProducts = products.filter(product => {
 
   const matchesSearch =
@@ -123,6 +126,7 @@ const [activeCategory, setActiveCategory] =
 
           return (
             <motion.div
+              onClick={() => setSelectedProduct(product)}
   key={product.id}
   initial={{ opacity: 0, y: 40 }}
   whileInView={{ opacity: 1, y: 0 }}
@@ -197,6 +201,62 @@ const [activeCategory, setActiveCategory] =
           )
         })}
       </div>
+      {selectedProduct && (
+
+  <div
+    className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-6"
+    onClick={() => setSelectedProduct(null)}
+  >
+
+    <div
+      className="bg-white rounded-[30px] max-w-4xl w-full overflow-hidden grid lg:grid-cols-2"
+      onClick={(e) => e.stopPropagation()}
+    >
+
+      <Image
+        src={selectedProduct.image}
+        alt={selectedProduct.name}
+        width={700}
+        height={700}
+        className="w-full h-full object-cover"
+      />
+
+      <div className="p-10 flex flex-col justify-center">
+
+        <span className="uppercase tracking-[4px] text-sm text-[#C89B63]">
+          {selectedProduct.category}
+        </span>
+
+        <h2 className="text-5xl font-serif mt-4">
+          {selectedProduct.name}
+        </h2>
+
+        <p className="mt-6 text-[#5c5248] leading-8">
+          Handmade luxury resin artwork crafted with premium
+          pigments, textures, and elegant finishing.
+        </p>
+
+        <p className="mt-8 text-3xl font-semibold text-[#243524]">
+          ₹{selectedProduct.price.toLocaleString()}
+        </p>
+
+        <button
+          onClick={() => {
+            addToCart(selectedProduct)
+            toast.success('Added to cart!')
+          }}
+          className="mt-8 bg-[#243524] text-white py-5 rounded-full"
+        >
+          Add To Cart
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+)}
     </section>
   )
 }
