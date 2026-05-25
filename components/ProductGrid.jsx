@@ -77,6 +77,20 @@ const [selectedProduct, setSelectedProduct] =
   useState(null)
 const [activeImage, setActiveImage] =
   useState(0)
+  const nextImage = () => {
+  if (
+    activeImage <
+    selectedProduct.images.length - 1
+  ) {
+    setActiveImage(activeImage + 1)
+  }
+}
+
+const prevImage = () => {
+  if (activeImage > 0) {
+    setActiveImage(activeImage - 1)
+  }
+}
   const filteredProducts = products.filter(product => {
 
   const matchesSearch =
@@ -247,7 +261,7 @@ const [activeImage, setActiveImage] =
 
       <div>
 
-  <div className="overflow-hidden group h-[50vh] lg:h-[85vh]">
+  <div className="relative overflow-hidden group h-[50vh] lg:h-[85vh]">
 
     <Image
       src={selectedProduct.images[activeImage]}
@@ -256,8 +270,52 @@ const [activeImage, setActiveImage] =
       height={700}
       className="w-full h-full object-cover transition duration-700 group-hover:scale-110"
     />
+    <button
+  onClick={prevImage}
+  disabled={activeImage === 0}
+  className={`absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full backdrop-blur-md flex items-center justify-center text-2xl transition ${
+    activeImage === 0
+      ? 'bg-white/30 text-gray-400 cursor-not-allowed'
+      : 'bg-white/80 hover:bg-white text-black'
+  }`}
+>
+  ←
+</button>
+
+<button
+  onClick={nextImage}
+  disabled={
+    activeImage ===
+    selectedProduct.images.length - 1
+  }
+  className={`absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full backdrop-blur-md flex items-center justify-center text-2xl transition ${
+    activeImage ===
+    selectedProduct.images.length - 1
+      ? 'bg-white/30 text-gray-400 cursor-not-allowed'
+      : 'bg-white/80 hover:bg-white text-black'
+  }`}
+>
+  →
+</button>
 
   </div>
+        <div className="flex justify-center gap-3 py-4">
+
+  {selectedProduct.images.map((_, index) => (
+
+    <button
+      key={index}
+      onClick={() => setActiveImage(index)}
+      className={`w-3 h-3 rounded-full transition ${
+        activeImage === index
+          ? 'bg-[#243524] scale-125'
+          : 'bg-gray-300'
+      }`}
+    />
+
+  ))}
+
+</div>
 
   <div className="flex gap-4 p-6 overflow-x-auto bg-white">
 
