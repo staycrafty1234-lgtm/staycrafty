@@ -9,35 +9,55 @@ const products = [
     id: 1,
     name: 'Luxury Resin Clock',
     price: 2499,
-    image: '/products/clock.jpg',
+    images: [
+  '/products/clock.jpg',
+  '/products/clock2.jpg',
+  '/products/clock3.jpg'
+],
     category: 'Clocks'
   },
   {
     id: 2,
     name: 'Artistic Serving Board',
     price: 1899,
-    image: '/products/board.jpg',
+    images: [
+      '/products/board.jpg',
+      '/products/board2.jpg',
+      '/products/board3.jpg'
+    ],
     category: 'Trays'
   },
   {
     id: 3,
     name: 'Geometric Resin Tray',
     price: 2299,
-    image: '/products/tray.jpg',
+    images: [
+      '/products/tray.jpg',
+      '/products/tray2.jpg',
+      '/products/tray3.jpg'
+    ],
     category: 'Trays'
   },
   {
     id: 4,
     name: 'Floral Lazy Susan',
     price: 1699,
-    image: '/products/lazy.jpg',
+    images: [
+      '/products/lazy.jpg',
+      '/products/lazy2.jpg',
+      '/products/lazy3.jpg'
+    ],
     category: 'Dining'
   },
   {
     id: 5,
     name: 'Om Decor Piece',
     price: 1299,
-    image: '/products/om.jpg',
+    images: [
+      '/products/om.jpg',
+      '/products/om2.jpg',
+      '/products/om3.jpg'
+    ],
     category: 'Decor'
   }
 ]
@@ -55,6 +75,8 @@ const [activeCategory, setActiveCategory] =
 
 const [selectedProduct, setSelectedProduct] =
   useState(null)
+const [activeImage, setActiveImage] =
+  useState(0)
   const filteredProducts = products.filter(product => {
 
   const matchesSearch =
@@ -126,7 +148,10 @@ const [selectedProduct, setSelectedProduct] =
 
           return (
             <motion.div
-              onClick={() => setSelectedProduct(product)}
+              onClick={() => {
+  setSelectedProduct(product)
+  setActiveImage(0)
+}}
   key={product.id}
   initial={{ opacity: 0, y: 40 }}
   whileInView={{ opacity: 1, y: 0 }}
@@ -138,7 +163,7 @@ const [selectedProduct, setSelectedProduct] =
               {/* IMAGE */}
               <div className="overflow-hidden">
                 <Image
-                  src={product.image}
+                  src={product.images[0]}
                   alt={product.name}
                   width={500}
                   height={500}
@@ -216,19 +241,46 @@ const [selectedProduct, setSelectedProduct] =
   >
 
     <div
-      className="bg-white rounded-[30px] max-w-4xl w-full overflow-hidden grid lg:grid-cols-2"
+      className="bg-white w-full h-full overflow-y-auto grid lg:grid-cols-2"
       onClick={(e) => e.stopPropagation()}
     >
 
       <div className="overflow-hidden group">
 
   <Image
-    src={selectedProduct.image}
+    src={selectedProduct.images[activeImage]}
     alt={selectedProduct.name}
     width={700}
     height={700}
     className="w-full h-full object-cover transition duration-700 group-hover:scale-110"
   />
+
+</div>
+      <div className="flex gap-4 p-6 overflow-x-auto">
+
+  {selectedProduct.images.map((img, index) => (
+
+    <button
+      key={index}
+      onClick={() => setActiveImage(index)}
+      className={`w-24 h-24 rounded-2xl overflow-hidden border-2 ${
+        activeImage === index
+          ? 'border-[#243524]'
+          : 'border-transparent'
+      }`}
+    >
+
+      <Image
+        src={img}
+        alt=""
+        width={100}
+        height={100}
+        className="w-full h-full object-cover"
+      />
+
+    </button>
+
+  ))}
 
 </div>
 
