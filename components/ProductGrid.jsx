@@ -241,11 +241,11 @@ const [activeImage, setActiveImage] =
   >
 
     <div
-      className="bg-white w-full h-full overflow-y-auto grid lg:grid-cols-2"
+      className="bg-white w-full h-full overflow-y-auto lg:grid lg:grid-cols-2"
       onClick={(e) => e.stopPropagation()}
     >
 
-      <div className="overflow-hidden group">
+      <div className="overflow-hidden group h-[50vh] lg:h-screen">
 
   <Image
     src={selectedProduct.images[activeImage]}
