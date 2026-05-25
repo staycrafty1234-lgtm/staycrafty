@@ -245,42 +245,47 @@ const [activeImage, setActiveImage] =
       onClick={(e) => e.stopPropagation()}
     >
 
-      <div className="overflow-hidden group h-[50vh] lg:h-screen">
+      <div>
 
-  <Image
-    src={selectedProduct.images[activeImage]}
-    alt={selectedProduct.name}
-    width={700}
-    height={700}
-    className="w-full h-full object-cover transition duration-700 group-hover:scale-110"
-  />
+  <div className="overflow-hidden group h-[50vh] lg:h-[85vh]">
 
-</div>
-      <div className="flex gap-4 p-6 overflow-x-auto">
+    <Image
+      src={selectedProduct.images[activeImage]}
+      alt={selectedProduct.name}
+      width={700}
+      height={700}
+      className="w-full h-full object-cover transition duration-700 group-hover:scale-110"
+    />
 
-  {selectedProduct.images.map((img, index) => (
+  </div>
 
-    <button
-      key={index}
-      onClick={() => setActiveImage(index)}
-      className={`w-24 h-24 rounded-2xl overflow-hidden border-2 ${
-        activeImage === index
-          ? 'border-[#243524]'
-          : 'border-transparent'
-      }`}
-    >
+  <div className="flex gap-4 p-6 overflow-x-auto bg-white">
 
-      <Image
-        src={img}
-        alt=""
-        width={100}
-        height={100}
-        className="w-full h-full object-cover"
-      />
+    {selectedProduct.images.map((img, index) => (
 
-    </button>
+      <button
+        key={index}
+        onClick={() => setActiveImage(index)}
+        className={`w-24 h-24 rounded-2xl overflow-hidden border-2 flex-shrink-0 ${
+          activeImage === index
+            ? 'border-[#243524]'
+            : 'border-transparent'
+        }`}
+      >
 
-  ))}
+        <Image
+          src={img}
+          alt=""
+          width={100}
+          height={100}
+          className="w-full h-full object-cover"
+        />
+
+      </button>
+
+    ))}
+
+  </div>
 
 </div>
 
