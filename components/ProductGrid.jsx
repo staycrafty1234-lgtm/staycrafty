@@ -211,7 +211,7 @@ const [selectedProduct, setSelectedProduct] =
       {selectedProduct && (
 
   <div
-    className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-6"
+    className="fixed inset-0 bg-black/40 backdrop-blur-md z-50 flex items-center justify-center p-6"
     onClick={() => setSelectedProduct(null)}
   >
 
