@@ -366,15 +366,49 @@ const prevImage = () => {
           ₹{selectedProduct.price.toLocaleString()}
         </p>
 
-        <button
-          onClick={() => {
-            addToCart(selectedProduct)
-            toast.success('Added to cart!')
-          }}
-          className="mt-8 bg-[#243524] text-white py-5 rounded-full"
-        >
-          Add To Cart
-        </button>
+        {cart.find(item => item.id === selectedProduct.id) ? (
+
+  <div className="mt-8 flex items-center justify-between bg-[#243524] text-white rounded-full overflow-hidden max-w-[300px]">
+
+    <button
+      onClick={() => decreaseQty(selectedProduct.id)}
+      className="px-8 py-5 text-2xl hover:bg-[#314531] transition"
+    >
+      −
+    </button>
+
+    <span className="text-xl font-semibold">
+
+      {
+        cart.find(
+          item => item.id === selectedProduct.id
+        )?.quantity
+      }
+
+    </span>
+
+    <button
+      onClick={() => increaseQty(selectedProduct.id)}
+      className="px-8 py-5 text-2xl hover:bg-[#314531] transition"
+    >
+      +
+    </button>
+
+  </div>
+
+) : (
+
+  <button
+    onClick={() => {
+      addToCart(selectedProduct)
+      toast.success('Added to cart!')
+    }}
+    className="mt-8 bg-[#243524] text-white py-5 rounded-full px-10"
+  >
+    Add To Cart
+  </button>
+
+)}
 
       </div>
 
