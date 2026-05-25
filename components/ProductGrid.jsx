@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import toast from 'react-hot-toast'
 import Image from 'next/image'
@@ -77,6 +77,19 @@ const [selectedProduct, setSelectedProduct] =
   useState(null)
 const [activeImage, setActiveImage] =
   useState(0)
+  useEffect(() => {
+
+  if (selectedProduct) {
+    document.body.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = 'auto'
+  }
+
+  return () => {
+    document.body.style.overflow = 'auto'
+  }
+
+}, [selectedProduct])
   const nextImage = () => {
   if (
     activeImage <
